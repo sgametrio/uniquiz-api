@@ -33,7 +33,7 @@
 	* How to connect to MYSQL command line:
 
 		```bash
-		cd laradock-uniquiz-backend
+		cd laradock
 		docker-compose exec mysql bash
 		mysql -u root -p
 		# Now enter your root's password

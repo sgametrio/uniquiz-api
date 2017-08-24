@@ -17,7 +17,7 @@ use App\Quiz;
 use App\Answer;
 
 Route::get("/", function () {
-	return view("welcome");
+	return "It works!";
 });
 
 Route::get("/questions", function () {
