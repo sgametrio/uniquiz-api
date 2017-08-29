@@ -11,13 +11,13 @@
 |
 */
 
-use App\Question;
-use App\Course;
-use App\Quiz;
-use App\Answer;
+use App\Models\Question;
+use App\Models\Course;
+use App\Models\Quiz;
+use App\Models\Answer;
 
 Route::get("/", function () {
-	return "It works!";
+	return "It works! (laravel)";
 });
 
 Route::get("/questions", function () {
