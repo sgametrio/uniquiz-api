@@ -6,29 +6,29 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateQuizzesTable extends Migration
 {
-	/**
-		* Run the migrations.
-		*
-		* @return void
-		*/
-	public function up()
-	{
-		Schema::create("quizzes", function (Blueprint $table) {
-			$table->increments("id");
-			//$table->string("url");
-			// If `null` it is a random-generated quiz
-			$table->string("name")->nullable()->default(null);
-			$table->timestamps();
-		});
-	}
+    /**
+        * Run the migrations.
+        *
+        * @return void
+        */
+    public function up()
+    {
+        Schema::create("quizzes", function (Blueprint $table) {
+            $table->increments("id");
+            //$table->string("url");
+            // If `null` it is a random-generated quiz
+            $table->string("name")->nullable()->default(null);
+            $table->timestamps();
+        });
+    }
 
-	/**
-		* Reverse the migrations.
-		*
-		* @return void
-		*/
-	public function down()
-	{
-		Schema::dropIfExists("quizzes");
-	}
+    /**
+        * Reverse the migrations.
+        *
+        * @return void
+        */
+    public function down()
+    {
+        Schema::dropIfExists("quizzes");
+    }
 }

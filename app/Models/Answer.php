@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-	/***  RELATIONSHIPS  ***/
+    /***  RELATIONSHIPS  ***/
 
-	public function question() {
-		return $this->belongsTo(Question::class);
-	}
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
 }
