@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
-class QuestionController extends Controller
+class ApiQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return Question::all();
+        //
     }
 
     /**
@@ -35,11 +35,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $question = new Question;
-        // TODO: filter variables content (makes sense?)
-        $question->text = $request->text;
-        $question->solution_type = $request->solution_type;
-        $question->save();
+        //
     }
 
     /**
@@ -50,7 +46,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        return $question;
+        //
     }
 
     /**
@@ -84,6 +80,6 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        $question->delete();
+        //
     }
 }

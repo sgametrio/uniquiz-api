@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/***    ADMIN CRUD ROUTES    ***/
+// TODO: Add auth middleware for accessing them
+Route::resource("/admin/questions", "QuestionController");
+
+/***    WEBAPP API ROUTES    ***/
+Route::resource("/questions", "ApiQuestionController");

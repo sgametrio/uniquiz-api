@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 
-class QuestionController extends Controller
+class ApiAnswerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return Question::all();
+        //
     }
 
     /**
@@ -35,31 +35,27 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $question = new Question;
-        // TODO: filter variables content (makes sense?)
-        $question->text = $request->text;
-        $question->solution_type = $request->solution_type;
-        $question->save();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show(Answer $answer)
     {
-        return $question;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Question $question)
+    public function edit(Answer $answer)
     {
         //
     }
@@ -68,10 +64,10 @@ class QuestionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, Answer $answer)
     {
         //
     }
@@ -79,11 +75,11 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Question  $question
+     * @param  \App\Models\Answer  $answer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Question $question)
+    public function destroy(Answer $answer)
     {
-        $question->delete();
+        //
     }
 }
