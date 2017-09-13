@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quiz extends Model
 {
+    protected $guarded = [];
+
     /***  RELATIONSHIPS  ***/
 
     public function course()
