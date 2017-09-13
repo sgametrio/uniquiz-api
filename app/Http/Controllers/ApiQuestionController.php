@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Question as QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ApiQuestionController extends Controller
 {
@@ -14,7 +16,7 @@ class ApiQuestionController extends Controller
      */
     public function index()
     {
-        //
+        return QuestionResource::collection(Question::all());
     }
 
     /**
@@ -35,7 +37,15 @@ class ApiQuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "text" => "required",
+            "solution_type" => [
+                "required",
+                Rule::in(["single", "open", "multiple"])
+            ]
+        ]);
+
+        $question = Question::create($request->all());
     }
 
     /**
@@ -44,9 +54,9 @@ class ApiQuestionController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Question $question)
+    public function show($id)
     {
-        //
+        return new QuestionResource(Question::find($id));
     }
 
     /**

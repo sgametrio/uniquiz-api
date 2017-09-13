@@ -14,12 +14,14 @@
 
 ## TO-DOs
 * UUIDs instead of IDs
-* CRUD for every model (boring)
+* CRUD for every model (boring) (only admin)
+* Create and Read for every model (every user)
 
 ## Laravel useful functions to use
-* [API authentication](https://laravel.com/docs/5.4/passport)
+* [API authentication](https://laravel.com/docs/5.5/passport)
 * OAuth2 support for login (later)
 * Database Pagination for 10+ results
+* [Validation](https://laravel.com/docs/5.5/validation) of incoming POST AJAX request
 
 ## HOW-TOs (dev)
 * Migrations:
