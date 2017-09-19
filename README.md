@@ -1,7 +1,9 @@
 # Uniquiz backend
 
 ## Getting Started ((Automate this please))
+* Clone this repo
 * Serve your backend with Laradock and type: `docker-compose up -d nginx mysql`
+* `composer install`
 * Copy `.env.example` to `.env` and change default passwords and usernames (!!) (both uniquiz-api and laradock)
 * Create DB, USER and GRANT permissions (skip this with my laradock setup)
 * Connect to `/appKey` and copy the random string to your `.env` file at `APP_KEY` entry
