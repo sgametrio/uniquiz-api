@@ -32,6 +32,11 @@ class AddForeignKeys extends Migration
             $table->integer("course_id")->unsigned();
             $table->foreign("course_id")->references("id")->on("courses");
         });
+
+        Schema::table("questions", function (Blueprint $table) {
+            $table->integer("course_id")->unsigned();
+            $table->foreign("course_id")->references("id")->on("courses");
+        });
     }
 
     /**
