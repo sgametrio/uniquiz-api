@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Http\Resources\Course as CourseResource;
 use Illuminate\Http\Request;
 
 class ApiCourseController extends Controller
@@ -14,7 +15,7 @@ class ApiCourseController extends Controller
      */
     public function index()
     {
-        //
+        return CourseResource::collection(Course::all());
     }
 
     /**
@@ -35,18 +36,26 @@ class ApiCourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required",
+            "code" => "required"
+        ]);
+
+        $course = Course::create([
+            "name" => $request->name,
+            "code" => $request->code
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($id)
     {
-        //
+        return new CourseResource(Course::find($id));
     }
 
     /**

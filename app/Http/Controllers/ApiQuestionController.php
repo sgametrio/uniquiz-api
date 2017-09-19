@@ -39,19 +39,29 @@ class ApiQuestionController extends Controller
     {
         $request->validate([
             "text" => "required",
-            "solution_type" => [
+            "solutionType" => [
                 "required",
                 Rule::in(["single", "open", "multiple"])
+            ],
+            "courseId" => "required",
+            "answers" => [
+                "array",
+                "required"
             ]
         ]);
 
-        $question = Question::create($request->all());
+        $question = Question::create([
+            "text" => $request->text,
+            "solution_type" => $request->solutionType,
+            "course_id" => $request->courseId
+        ]);
+        $question->answers()->createMany($request->answers);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Question  $question
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)

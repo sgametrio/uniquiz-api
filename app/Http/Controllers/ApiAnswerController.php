@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Http\Resources\Answer as AnswerResource;
 use Illuminate\Http\Request;
 
 class ApiAnswerController extends Controller
@@ -14,7 +15,7 @@ class ApiAnswerController extends Controller
      */
     public function index()
     {
-        //
+        return AnswerResource::collection(Answer::all());
     }
 
     /**
@@ -35,18 +36,28 @@ class ApiAnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // non-sense, why do I have to store an answer without its question?
+        $request->validate([
+            "text" => "required",
+            "correct" => [
+                "required",
+                Rule::in(["correct", "wrong"])
+            ]
+        ]);
+
+        $answer = Answer::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Answer  $answer
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Answer $answer)
+    public function show($id)
     {
-        //
+        return new AnswerResource(Answer::find($id));
+
     }
 
     /**
