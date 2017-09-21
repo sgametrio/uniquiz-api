@@ -14,10 +14,12 @@ class CreateQuestionsTable extends Migration
     public function up()
     {
         Schema::create("questions", function (Blueprint $table) {
-            $table->increments("id");
+            $table->uuid("id");
             $table->text("text");
             $table->enum("solution_type", ["open", "single", "multiple"]);
             $table->timestamps();
+
+            $table->primary("id");
         });
     }
 

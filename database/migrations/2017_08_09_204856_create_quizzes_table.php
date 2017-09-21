@@ -14,11 +14,12 @@ class CreateQuizzesTable extends Migration
     public function up()
     {
         Schema::create("quizzes", function (Blueprint $table) {
-            $table->increments("id");
-            //$table->string("url");
+            $table->uuid("id");
             // If `null` it is a random-generated quiz
             $table->string("name")->nullable()->default(null);
             $table->timestamps();
+
+            $table->primary("id");
         });
     }
 

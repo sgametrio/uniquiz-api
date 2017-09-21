@@ -14,10 +14,12 @@ class CreateAnswersTable extends Migration
     public function up()
     {
         Schema::create("answers", function (Blueprint $table) {
-            $table->increments("id");
+            $table->uuid("id");
             $table->text("text");
             $table->enum("correct", ["correct", "wrong"])->default("wrong");
             $table->timestamps();
+
+            $table->primary("id");
         });
     }
 
