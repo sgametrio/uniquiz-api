@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Quiz;
 use App\Models\Question;
 use App\Http\Resources\Quiz as QuizResource;
@@ -45,12 +46,16 @@ class ApiQuizController extends Controller
             "courseId" => "required"
         ]);
 
-        $questions = Question::where("course_id", "=", $request->courseId)->inRandomOrder()->take($request->numberOfQuestions)->get()->pluck("id");
-        $quiz = Quiz::create([
-            "course_id" => $request->courseId
-        ]);
-        $quiz->questions()->attach($questions->toArray());
-        return new QuizResource($quiz);
+        return DB::transaction(function () use ($request) {
+            //TODO: Add control over numberOfQuestions and questions existing in DB
+            $questions = Question::where("course_id", "=", $request->courseId)->inRandomOrder()->take($request->numberOfQuestions)->get()->pluck("id");
+            $quiz = Quiz::create([
+                "course_id" => $request->courseId
+            ]);
+            $quiz->questions()->attach($questions->toArray());
+
+            return new QuizResource($quiz);
+        });
     }
 
     /**
@@ -73,12 +78,14 @@ class ApiQuizController extends Controller
             ]
         ]);
 
-        //TODO: Verify that all questionIds exists and belong to the same courseId
-        $quiz = Quiz::create([
-            "course_id" => $request->courseId,
-            "name" => $request->quizName
-        ]);
-        $quiz->questions()->attach($request->questionIds);
+        DB::transaction(function () use ($request) {
+            //TODO: Verify that all questionIds exists and belong to the same courseId
+            $quiz = Quiz::create([
+                "course_id" => $request->courseId,
+                "name" => $request->quizName
+            ]);
+            $quiz->questions()->attach($request->questionIds);
+        });
     }
 
     /**
