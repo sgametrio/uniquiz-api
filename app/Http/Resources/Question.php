@@ -18,7 +18,9 @@ class Question extends Resource
             "id" => $this->id,
             "text" => $this->text,
             "solutionType" => $this->solution_type,
-            "answers" => Answer::collection($this->answers),
+            "answers" => $this->when($this->solutionType != "open", function () {
+                return Answer::collection($this->answers);
+            }),
             "courseId" => $this->course->id
         ];
     }
