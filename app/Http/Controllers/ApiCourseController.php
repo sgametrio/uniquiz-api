@@ -91,4 +91,48 @@ class ApiCourseController extends Controller
     {
         //
     }
+
+    public function importCourse(Request $request) {
+        // TODO: better args validation
+        // * course.name ecc...
+        $request->validate([
+            "course" => "required",
+            "course.name" => "required",
+            "course.code" => "required"
+        ]);
+
+        // For now, we accept a course with questions as a direct child and
+        // course with chapters with questions
+
+        return DB::transaction(function () use ($request) {
+
+            $coursePost = $request->course;
+            $questions = [];
+
+            // Need to find something for categorizing chapters questions
+            if (array_key_exists("chapters", $coursePost)) {
+                // For now, extract questions all together
+                foreach ($coursePost["chapters"] as $chapter) {
+                    $questions = array_merge($questions, $chapter["questions"]);
+                }
+            } else {
+                $questions = $coursePost["questions"];
+            }
+
+            // DB OPERATIONS
+            $course = Course::firstOrCreate([
+                "name" => $coursePost["name"],
+                "code" => $coursePost["code"]
+            ]);
+
+            foreach ($questions as $question) {
+                $courseQuestion = Question::create([
+                    "text" => $question["text"],
+                    "solution_type" => $question["solution_type"],
+                    "course_id" => $course["id"]
+                ]);
+                $courseQuestion->answers()->createMany($question["answers"]);
+            }
+        });
+    }
 }

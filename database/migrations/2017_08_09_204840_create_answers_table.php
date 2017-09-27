@@ -16,9 +16,8 @@ class CreateAnswersTable extends Migration
         Schema::create("answers", function (Blueprint $table) {
             $table->uuid("id");
             $table->text("text");
-            $table->enum("correct", ["correct", "wrong"])->default("wrong");
+            $table->boolean("correct")->default(false);
             $table->timestamps();
-
             $table->primary("id");
         });
     }

@@ -21,10 +21,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /***    ADMIN CRUD ROUTES    ***/
 // TODO: Add auth middleware before accessing them
 Route::resource("/admin/questions", "QuestionController");
+Route::post("/admin/importCourse", "ApiCourseController@importCourse");
 
 /***    WEBAPP API ROUTES    ***/
 Route::resource("/questions", "ApiQuestionController");
+// Create random quiz
 Route::post("/quizzes/create", "ApiQuizController@create");
+// Show only named quiz (quiz["name"] != null)
 Route::get("/quizzes/named", "ApiQuizController@indexNamed");
 Route::resource("/quizzes", "ApiQuizController");
 Route::resource("/answers", "ApiAnswerController");
