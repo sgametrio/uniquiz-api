@@ -17,7 +17,7 @@ class Answer extends Resource
         return [
             "id" => $this->id,
             "text" => $this->text,
-            "correct" => $this->correct
+            //"correct" => $this->correct
         ];
     }
 }
