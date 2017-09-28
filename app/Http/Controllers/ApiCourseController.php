@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Course;
+use App\Models\Question;
 use App\Http\Resources\Course as CourseResource;
 use Illuminate\Http\Request;
 
