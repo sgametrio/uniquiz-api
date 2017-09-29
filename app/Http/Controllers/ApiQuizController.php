@@ -94,9 +94,9 @@ class ApiQuizController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Quiz $quiz)
     {
-        return new QuizResource(Quiz::find($id));
+        return new QuizResource($quiz);
     }
 
     /**
@@ -106,6 +106,17 @@ class ApiQuizController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Quiz $quiz)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Quiz  $quiz
+     * @return \Illuminate\Http\Response
+     */
+    public function checkSubmission(Quiz $quiz)
     {
         //
     }

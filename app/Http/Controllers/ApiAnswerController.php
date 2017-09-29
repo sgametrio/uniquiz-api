@@ -54,9 +54,9 @@ class ApiAnswerController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Answer $answer)
     {
-        return new AnswerResource(Answer::find($id));
+        return new AnswerResource($answer);
 
     }
 

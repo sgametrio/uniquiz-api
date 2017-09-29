@@ -64,9 +64,9 @@ class ApiQuestionController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-        return new QuestionResource(Question::find($id));
+        return new QuestionResource($question);
     }
 
     /**

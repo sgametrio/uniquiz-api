@@ -55,9 +55,9 @@ class ApiCourseController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Course $course)
     {
-        return new CourseResource(Course::find($id));
+        return new CourseResource($course);
     }
 
     /**
