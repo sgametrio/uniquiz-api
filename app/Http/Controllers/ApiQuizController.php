@@ -111,14 +111,57 @@ class ApiQuizController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Return a score of user submission
      *
-     * @param  \App\Models\Quiz  $quiz
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function checkSubmission(Quiz $quiz)
+    public function checkSubmission(Request $request)
     {
-        //
+        $quizSubmission = $request->submission;
+        $maxScore = 0;
+        $score = 0;
+        // For every correct answer 1 point (maybe this has to be saved on DB)
+        $quiz = Quiz::find($quizSubmission["id"]);
+        foreach ($quizSubmission["questions"] as $question) {
+            // Check if question exists into DB
+            $correctQuestion = Question::findOrFail($question["id"]);
+            // Check answer and calculate score based on solution_type
+            if ($correctQuestion->solution_type === "single") {
+                $maxScore += 1;
+                $answer = $correctQuestion->answers->where("correct", "=", true)->first();
+                if ($question["answerId"] === $answer["id"]) {
+                    // Congrats, correct answer, +1!
+                    $score += 1;
+                }
+            } else if ($correctQuestion->solution_type === "open") {
+                $maxScore += 1;
+                $answer = $correctQuestion->answers->where("correct", true)->first();
+                if ($question["openAnswerText"] === $answer["text"]) {
+                    // Congrats, correct answer, +1!
+                    $score += 1;
+                }
+            } else {
+                // Check for multiple correct answers
+                // Don't know if pluck mess up things or not
+                // Change scoring method because if all answers are checked -> max score
+                $answersIds = $correctQuestion->answers->where("correct", true)->get()->pluck("id");
+                foreach ($answersIds as $correctId) {
+                    $maxScore += 1;
+                    if (in_array($correctId, $question["answersIds"])) {
+                        // Congrats, correct answer, +1!
+                        $score += 1;
+                    }
+                }
+            }
+        }
+
+        $scoreObj = [
+            "score" => $score,
+            "maxScore" => $maxScore
+        ];
+
+        return $scoreObj;
     }
 
     /**

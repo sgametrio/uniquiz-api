@@ -27,6 +27,8 @@ Route::post("/admin/importCourse", "ApiCourseController@importCourse");
 Route::resource("/questions", "ApiQuestionController");
 // Create random quiz
 Route::post("/quizzes/create", "ApiQuizController@create");
+// Check submission and send score
+Route::post("/quizzes/score", "ApiQuizController@checkSubmission");
 // Show only named quiz (quiz["name"] != null)
 Route::get("/quizzes/named", "ApiQuizController@indexNamed");
 Route::resource("/quizzes", "ApiQuizController");
