@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Quiz;
 use App\Models\Question;
+use App\Models\Course;
 use App\Http\Resources\Quiz as QuizResource;
 use App\Http\Resources\Question as QuestionResource;
 use Illuminate\Http\Request;
@@ -26,10 +27,12 @@ class ApiQuizController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function indexNamed()
-     {
-         return QuizResource::collection(Quiz::whereNotNull("name")->get());
-     }
+    public function named(Course $course = null)
+    {
+        if ($course == null)
+            return QuizResource::collection(Quiz::whereNotNull("name")->get());
+        return QuizResource::collection($course->quizzes()->whereNotNull("name")->get());
+    }
 
     /**
      * Apply some additional steps before storing newly random-created quiz.

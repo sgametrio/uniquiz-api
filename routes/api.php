@@ -30,7 +30,7 @@ Route::post("/quizzes/create", "ApiQuizController@create");
 // Check submission and send score
 Route::post("/quizzes/score", "ApiQuizController@checkSubmission");
 // Show only named quiz (quiz["name"] != null)
-Route::get("/quizzes/named", "ApiQuizController@indexNamed");
+Route::get("/quizzes/named/{course?}", "ApiQuizController@named");
 Route::resource("/quizzes", "ApiQuizController");
 Route::resource("/answers", "ApiAnswerController");
 Route::resource("/courses", "ApiCourseController");
